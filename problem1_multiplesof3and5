@@ -1,0 +1,48 @@
+package com.test;
+import java.util.*;
+
+public class Test {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Test test = new Test();
+		test.MultiplesOf3Or5();
+	}
+	//projectEuler p=1
+	public void MultiplesOf3Or5(){
+		//给定范围
+		final int N=1000;
+		//定义两个集合，分别存储3的倍数和5的倍数的数
+		ArrayList multiOf3 = new ArrayList();;
+		ArrayList multiOf5 = new ArrayList();
+		int sum = 0;
+		//给定相乘的3的个数
+		for(int i = 1;;i ++){
+			int mul3 = 3*i;
+			if(mul3<N){
+				multiOf3.add(mul3);
+			}else{
+			break;
+			}
+		}
+		//给定相乘的5的个数
+		for(int i = 1;;i++){
+			int mul5 = 5*i;
+			if(mul5<N){
+				multiOf3.add(mul5);
+			}else{
+				break;
+			}
+		}
+		//求和
+		for(int i = 0;i<multiOf3.size();i++){
+			//System.out.println(multiOf3.get(i));
+			sum = sum + (int)multiOf3.get(i);
+		}
+		for(int i = 0;i<multiOf5.size();i++){
+			sum = sum + (int)multiOf5.get(i);
+			//System.out.println(multiOf5.get(i));
+		}
+		System.out.println(sum);
+	}
+}
