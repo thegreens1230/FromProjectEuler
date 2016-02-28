@@ -45,4 +45,15 @@ public class Test {
 		}
 		System.out.println(sum);
 	}
+	//这样做才是王道啊
+	public void MultiplesOf3Or5_2(){
+		int sum= 0;
+		for(int i = 1;i < Test.N;i ++){
+			if(i%3 == 0 || i%5 == 0){
+				System.out.println(i);
+				sum = sum + i;
+			}
+		}
+		System.out.println(sum);
+	}
 }
