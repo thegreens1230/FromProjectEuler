@@ -1,0 +1,37 @@
+/**
+ * problem 9 
+ * 算法：先通过 和数 开方求得一个上限值 max，然后将小于max的数平方再各种组合
+ * 算法2：少用乘法
+ */
+package com.test;
+
+public class Test9 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		final int N = 1000;
+		//得到结果
+		boolean flag = false;
+		int a=0,b=0,c=0;
+		double max = Math.pow(N, 0.5);
+		for(int i=1;i<max;i++){
+			a = i*i;
+			for(int j=1;j<max;j++){
+				b = j*j;
+				for(int k=1;k<max;k++){
+					c = k*k;
+					if(a+b+c == 1000){
+						flag = true;
+						break;
+					}
+				}
+				if(flag) break;
+			}
+			if(flag) {
+				System.out.println(a+" "+b+" "+c);
+				break;
+			}
+		}
+	}
+
+}
