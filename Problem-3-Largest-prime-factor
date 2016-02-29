@@ -40,7 +40,7 @@ public class Test3 {
 		}
 		
 	}
-	//获得所有质数的方法
+	//获得所有质数的方法  Problem 7 的答案
 	public void primeFactor(){
 		pFactor = new ArrayList<Long> ();
 		//添加2
