@@ -1,0 +1,45 @@
+/**
+ * problem 4 Largest palindrome product
+ * 算法：先编写函数判断一个数是否为palindrome，然后用此函数判断101~999 * 101~999的每一个数是否为palindrome，得到最大
+ */
+package com.test;
+
+import java.util.Arrays;
+
+public class Test4 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Test4 t = new Test4();
+		t.creatNum();
+
+	}
+	//生成两个三位数相乘的数
+	public void creatNum(){
+		int max = 0,mul = 0;
+		for(int i=101;i<1000;i++){
+			for(int j=i;j<1000;j++){
+				mul = i * j;
+				if(this.palindrome(mul)){
+					max = mul;
+					System.out.println(i+"*"+j+"="+max);
+				}
+			}
+		}
+		System.out.println(max);
+	}
+	//判断是否为palindrome的函数，若num为palindrome，则返回true
+	public boolean palindrome(int num){
+		String s = num+"";
+		String [] byNum = s.split("");
+		//倒置，给定存倒置数的数组
+		String [] byNumRev = new String[byNum.length];
+		for(int i = 0;i <byNum.length;i++){
+			byNumRev[i] = byNum[byNum.length-i-1];
+		}
+		if(Arrays.equals(byNum,byNumRev)){
+			return true;
+		}
+		else return false;
+	}
+}
