@@ -1,0 +1,35 @@
+/**
+ * problem 2:400万以内，斐波拉契数列偶数项之和
+ */
+package com.test;
+
+public class Test2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Test2 t = new Test2();
+		t.fibonacciEven();
+
+	}
+	public void fibonacciEven(){
+		//初值为2
+		int sum = 2;
+		//定义c的初值为0，c=a+b
+		int a = 1,b = 2,c = 0;
+		for(int i = 0; ; i++){
+			c = a + b;
+			a = b;
+			b = c;
+			//若为为偶数，则累加
+			if(b % 2 ==0){
+				sum = sum + b;
+			}
+			//若超出范围，则退出
+			if(b > 4000000){
+				break;
+			}
+		}
+		System.out.println(sum);
+	}
+
+}
