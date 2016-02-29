@@ -1,0 +1,60 @@
+/**
+ * problem 3 求数的所有因子中数值最大的因子
+ */
+package com.test;
+import java.util.*;
+
+public class Test3 {
+	//给定数值，long数据类型后加L
+	static long N = 851475143L;
+	//小于N的质数几何
+	ArrayList<Long> pFactor = null;
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Test3 t = new Test3();
+		t.primeFactor();
+		t.largestPrimeFactor();
+//		for(int i = 0;i<100;i++)
+//			System.out.println(t.pFactor.get(i));
+		
+	}public void largestPrimeFactor(){
+		long num = Test3.N;
+		//两层循环
+		//第一层，将质数集合中每个数当做除数
+		for(int i = 0;i<pFactor.size();i++){
+			//第二层，每个除数除的次数
+			for(int j = 0;;j++){
+				//若不能够被整除，则跳出
+				if(num%pFactor.get(i) != 0 ){
+					break;
+				}else{//否则将该数输出，并重置N为被除后的数
+					num = num/pFactor.get(i);
+					System.out.println(pFactor.get(i));
+				}
+			}
+			//如果num=1,表示已经计算完毕
+			if(num == 1){
+				break;
+			}
+		}
+		
+	}
+	//获得所有质数的方法
+	public void primeFactor(){
+		pFactor = new ArrayList<Long> ();
+		//添加2
+		pFactor.add(2L);
+		//从3开始
+		for(long i=3L ;i<N ;i++){
+			//用质数集合pFactor中的数来判断一个数是不是质数
+			for(int j = 0;j<pFactor.size();j++){
+				if(i%pFactor.get(j) == 0){
+					break;
+				}else if(j == pFactor.size()-1){
+					pFactor.add(i);
+				}
+			}
+		}
+	}
+}
