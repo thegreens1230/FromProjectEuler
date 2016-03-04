@@ -1,0 +1,42 @@
+/**
+ * Problem 12 Highly divisible triangular number
+ * 算法：硬着头皮算
+ */
+package com.test;
+
+public class Test12 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Test12 ts12 = new Test12();
+		ts12.getHDTN();
+	}
+
+	public void getHDTN() {
+		// 指定因子个数
+		final int N = 500;
+		// 第i个三角数
+		int num = 0;
+		// 第i个三角数的因子数
+		int diviNum = 0;
+		// 满足条件的数
+		int triNum = 0;
+		for (int i = 2;; i++) {
+			diviNum = 2;
+			num = (1 + i) * i / 2;
+			for (int j = 2; j <= Math.sqrt(num); j++) {
+				if (num % j == 0 && num / j != j) {
+					diviNum = diviNum + 2;
+				} else if (num % j == 0 && num / j != j) { // 如果恰好是某个数的平方，则因子数只+1
+					diviNum++;
+				}
+			}
+			// 超过预期的N个因子则退出循环
+			if (diviNum > N) {
+				triNum = num;
+				System.out.println(triNum + " has " + diviNum + " factors");
+				break;
+			}
+		}
+	}
+}
