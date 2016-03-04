@@ -1,0 +1,39 @@
+/**
+ * Problem 14 Longest Collatz sequence
+ * 算法：
+ * 1.常规算法（从1-N一致重复这种计算，并比较链长）
+ * 2.每计算一次，都将链中的没个数存起来，如果后续计算的时候包含链中的数，则不需要计算了（但是好像效率没有明显提高）
+ */
+package com.test;
+
+public class Test14 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//链长
+		int chainNum = 0;
+		int maxChain = 0;
+		//数值
+		int num = 0;
+		int maxNum = 0;
+		//指定范围
+		int N = 1000000;
+		for(int i = 2;i < N;i ++){
+			num = i;
+			chainNum = 0; //每一次都要初始化
+			while(num != 1){
+				if(num % 2 == 0){
+					num = num / 2;
+				}else{
+					num = 3 * num + 1;
+				}
+				chainNum ++;
+			}
+			if(chainNum > maxChain){
+				maxChain = chainNum;
+				maxNum = i;
+			}
+		}
+		System.out.println(maxNum+" "+maxChain);
+	}
+}
