@@ -1,0 +1,70 @@
+/**
+ * problem 11 Largest product in a grid
+ */
+package com.test;
+
+public class Test11 {
+	//设置行与列
+	int row = 5;
+	int col = 5;
+	//最大值和下标以及方向
+	int greatP = 0;
+	int index_x = 0;
+	int index_y = 0;
+	String dir = "";
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int [][] nums = {{1,2,3,4,5},{2,7,4,5,6},{3,4,8,6,7},{4,5,6,7,8},{5,6,7,8,9}};
+		Test11 ts11 = new Test11();
+		ts11.getGP(nums);
+		System.out.println(ts11.greatP+" "+ts11.index_x+" "+ts11.index_y+" "+ts11.dir);
+	}
+	public void setGP(int p,int x,int y,String d){
+		if(p > this.greatP){
+			this.greatP = p;
+			this.index_x = x;
+			this.index_y = y;
+			this.dir = d;
+		}
+	}
+	//分成三种情况，分别为横   竖   斜
+	public void getGP(int [][] nums){
+
+		//当前产生的值
+		int prod = 0;
+		//横
+		for(int i = 0;i < row;i++){
+			for(int j = 0;j < col-3;j ++){
+				prod = nums[i][j]*nums[i][j+1]*nums[i][j+2]*nums[i][j+3];
+				this.setGP(prod, i, j,"横");
+			}
+		}
+		//竖
+		for(int i = 0;i < row;i++){
+			for(int j = 0;j < col-3;j ++){
+				prod = nums[j][i]*nums[j+1][i]*nums[j+2][i]*nums[j+3][i];
+				this.setGP(prod, i, j,"竖");
+			}
+		}
+		//斜 分为左倾和右倾
+		//左倾
+		for(int i = 0;i<row-3;i++){
+			for(int j=0;i+j<col-3;j++){
+				prod = nums[i+j][j]*nums[i+j+1][j+1]*nums[i+j+2][j+2]*nums[i+j+3][j+3];
+				this.setGP(prod, i+j, j,"左倾");
+				prod = nums[j][i+j]*nums[j+1][i+j+1]*nums[j+2][i+j+2]*nums[j+3][i+j+3];
+				this.setGP(prod, j, i+j,"左倾");
+			}
+		}
+		//右倾
+		for(int i=3;i<row;i++){
+			for(int j=0;i-j<3;j++){
+				prod = nums[i-j][j]*nums[i-j-1][j+1]*nums[i-j-2][j+2]*nums[i-j-3][j+3];
+				this.setGP(prod, i-j, j,"右倾");
+				prod = nums[j][i-j]*nums[j+1][i-j-1]*nums[j+2][i-j-2]*nums[j+3][i-j-3];
+				this.setGP(prod, j, i-j,"右倾");
+			}
+		}
+	}
+
+}
