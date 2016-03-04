@@ -1,0 +1,60 @@
+/**
+ * Problem 13 Large sum
+ * 通过文件读取这100个数
+ * 算法：就像小学学加法那样，从最后一位开始求和，将算得的结果去掉最后一位并参与倒数第二位的求和，
+ *       并将取掉的那一位存入到数组中，从而得到最终加和的结果，最终得到large sum
+ */
+package com.test;
+import java.io.*;
+import java.util.*;
+
+public class Test13 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//得到字符串数组
+		String[] str = new String[100];
+		try {
+			FileReader fr = new FileReader("F://JavaLearning//ProjectEuler//Problem13_data.txt");
+			BufferedReader br = new BufferedReader(fr);
+			String s = "";
+			int i = 0;
+			while((s = br.readLine()) != null){
+				str[i] = s;
+				//System.out.println(str[i]);
+				i++;
+			}
+			br.close();
+			fr.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Test13 ts = new Test13();
+		ts.getLargeS(str);
+
+	}
+	//将字符串数组作为输入参数
+	public void getLargeS(String [] str){
+		//和数
+		int val=0;
+		//存储的数组
+		ArrayList arr = new ArrayList();
+		//总共50位数字
+		for(int i=49;i>=0;i--){
+			//总共100个数
+			for(int j=0;j<str.length;j++){
+				//100个第i位数字相加
+				val = val + (int)(str[j].charAt(i));
+			}
+			//去掉val的最后一位
+			String ss = val+"";
+			arr.add(ss.substring(ss.length()-1));
+			val = Integer.parseInt((ss.substring(0, ss.length()-2)));
+		}
+		arr.add(val);
+		for(int i=arr.size()-1;i>=0;i--){
+			System.out.print(arr.get(i));
+		}
+	}
+}
