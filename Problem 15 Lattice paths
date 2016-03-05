@@ -1,0 +1,26 @@
+/**
+ * Problem 15 Lattice paths
+ * 算法：参考了网上的图示
+ */
+package com.test;
+
+public class Test15 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//网格维度
+		int Dim = 21;
+		//定义二维数组长度
+		int[][] arr = new int[Dim][Dim];
+		arr[0][0] = 0;
+		for(int i=1;i<Dim;i++){
+			arr[i][0] = 1;
+			for(int j=1;j<Dim;j++){
+				arr[0][j] = 1;
+				arr[i][j] = arr[i-1][j]+arr[i][j-1];
+			}
+		}
+		System.out.println(arr[20][20]);
+	}
+
+}
