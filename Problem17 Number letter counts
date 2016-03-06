@@ -1,0 +1,80 @@
+/**
+ * Problem 17 Number letter counts
+ * 算法：先归类，将通样词数的单词归纳成同一类，而后对每个数进行判断和选择
+ */
+package com.test;
+import java.util.*;
+
+public class Test17 {
+	//归类，含3个字符的数
+	ArrayList<Integer> arr_3 = null;
+	ArrayList<Integer> arr_4 = null;
+	ArrayList<Integer> arr_5 = null;
+	ArrayList<Integer> arr_6 = null;
+	ArrayList<Integer> arr_7 = null;
+	ArrayList<Integer> arr_8 = null;
+	ArrayList<Integer> arr_9 = null;
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Test17 ts = new Test17();
+		ts.getCounts();
+	}
+	public void getCounts(){
+		//指定数字
+		final int N = 1000;
+		//总和
+		int counts = 0;
+		//
+		int num = 0;
+		//判断
+		for(int i=1;i<=N;i++){
+			//分类
+			if(i <= 20){
+				//若存在于某个集合中，则num=该集合的值
+				num = this.getDigit(i);
+			}else if(i < 100){
+				int dig_2 = i % 10;
+				int dig_1 = i - dig_2;
+				num = this.getDigit(dig_1)+this.getDigit(dig_2);
+			}else if(i < 1000){
+				//个位，如256，=6
+				int dig_3 = i % 10;
+				//十位，=50
+				int dig_2 = (i - dig_3) % 100;
+				//百位，=200/100=2
+				int dig_1 = (i- dig_2 - dig_3)/100;
+				//and = 3,hundred = 7，因此+3
+				num = this.getDigit(dig_1)+7+3+this.getDigit(dig_2)+this.getDigit(dig_3);
+				//如果是整百位，则没有 and，因此-3
+				if(dig_2 == 0 && dig_3 == 0){
+					num -= 3;
+				}
+			}
+			counts = counts + num;
+		}
+		//one thousand = 10
+		System.out.println(counts + 10);
+	}
+	//输入某个数，获得改数包含字母的个数
+	public int getDigit(int i){
+		//初始化  1 2 3 4 5 6 7 8 9 10 20 30 40 50 60 70 80 90
+		arr_3 = new ArrayList<Integer>(Arrays.asList(1,2,6,10));
+		arr_4 = new ArrayList<Integer>(Arrays.asList(4,5,9));
+		arr_5 = new ArrayList<Integer>(Arrays.asList(3,7,8,40,50,60));
+		arr_6 = new ArrayList<Integer>(Arrays.asList(11,12,20,30,80,90));
+		arr_7 = new ArrayList<Integer>(Arrays.asList(15,16,70));
+		arr_8 = new ArrayList<Integer>(Arrays.asList(13,14,18,19));
+		arr_9 = new ArrayList<Integer>(Arrays.asList(17));
+		int digit = 0;
+		if(arr_3.contains(i))	digit = 3;
+		else if(arr_4.contains(i)) digit = 4;
+		else if(arr_5.contains(i)) digit = 5;
+		else if(arr_6.contains(i)) digit = 6;
+		else if(arr_7.contains(i)) digit = 7;
+		else if(arr_8.contains(i)) digit = 8;
+		else  digit = 9;
+		return digit;
+	}
+
+}
