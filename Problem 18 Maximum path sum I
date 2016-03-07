@@ -74,5 +74,26 @@ public class Test18 {
 		}
 		return arr;
 	}
-
+	public void getPathSum_2(int [][] arr){
+		for(int i = this.N-2;i>=0;i--){
+			for(int j = 0;j<this.N;j++){
+				//越界则结束
+				if(arr[i][j] == 0) break;
+				arr[i][j] = arr[i][j] + this.max(arr[i+1][j],arr[i+1][j+1]);
+			}
+			//输出矩阵
+			for(int m=0;m<arr.length;m++){
+				for(int n=0;n<arr.length;n++){
+					System.out.print(arr[m][n]+" ");
+				}
+				System.out.println();
+			}
+		}
+		System.out.println("方法2 "+arr[0][0]);
+	}
+	//取大的函数
+	public int max(int a,int b){
+		if(a > b) return a;
+		else return b;
+	}	
 }
