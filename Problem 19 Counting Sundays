@@ -1,0 +1,67 @@
+/**
+ * Problem 19 Counting Sundays
+ * 20世纪有多少天的 周日是在每个月的第一天
+ * 算法：
+ */
+package com.test;
+
+public class Test19 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Test19 ts = new Test19();
+//		减去1900当年的周日数
+		System.out.println(ts.countSun(2000)-ts.countSun(1900));;
+
+	}
+	//计算周日天数，从1900年开始，结束年为endYear
+	public int countSun(int endYear){
+		//总天数
+		int totalDays = 0;
+		//星期天的天数
+		int sundays = 0;
+		//年份
+		for(int year = 1900;year <= endYear;year ++){
+			//月份
+			for(int month = 1;month <= 12;month ++){
+				totalDays = totalDays + dayToCount(month,year);
+				//判断"下月1号"是否为周日，当时间为1900.01时，31%7=3 那么当天是周三
+				if(totalDays % 7 == 0){
+					sundays ++;
+				}
+			}
+		}
+		return sundays;
+	}
+	//判断应该每月加多少天
+	public int dayToCount(int month,int year){
+		int days = 0;
+//		如果是小月
+		if(month == 4 || month == 6 || month == 9 || month == 11){
+			days = 30;
+		}else if(month == 2){
+			//如果是闰年
+			if(this.isLeap(year)){
+				days = 29;
+			}else{
+				days = 28;
+			}
+		}else{
+			days = 31;
+		}
+		return days;
+	}
+	//判断是否为闰年
+	public boolean isLeap(int year){
+		boolean leap = false;
+		if(year % 100 == 0){
+			if(year % 400 == 0){
+				leap = true;
+			}
+		}else if(year % 4 == 0){
+			leap = true;
+		}
+		return leap;
+	}
+
+}
