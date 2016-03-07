@@ -1,0 +1,77 @@
+/**
+ * Problem 18 Maximum path sum 1
+ * 算法：由于总的选择是2^14次方，恰好是二级制数 从0-11111111111111，因此每一项针对二进制的规则进行选择
+ */
+package com.test;
+import java.io.*;
+
+public class Test18 {
+	public static int N = 15;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int [][] arr = null;
+		try {
+			FileReader fr = new FileReader("F:\\JavaLearning\\ProjectEuler\\Problem18_data.txt");
+			BufferedReader br = new BufferedReader(fr);
+			arr = new int[15][15];
+//			存储得到的那行
+			String ss = "";
+//			存储分割后的数组
+			String [] sss = new String[Test18.N];
+			for(int i = 0;i < Test18.N;i ++){
+				if((ss = br.readLine()) != null){
+					sss = ss.split("\\ ");
+					for(int j = 0;j < sss.length;j++){
+						arr[i][j] = Integer.parseInt(sss[j]);
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Test18 ts = new Test18();
+		ts.getPathSum(arr);
+		
+	}
+	public void getPathSum(int[][] arr){
+		int [] arr1 = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+		//最大值
+		int maxPath = 0;
+		//从数组第一个数开始，1表示右，0表示左侧
+		//第i次计算
+		for(int i=1;i<Math.pow(2, this.N-1);i++){
+			//总和
+			int pathSum = 3;
+			for(int k=1;k<this.N;k++){
+				//列数
+				int col = 0;
+				for(int j=0;j<k;j++){
+					col = col + arr1[j];
+				}
+				pathSum = pathSum + arr[k][col];
+			}
+			if(pathSum > maxPath){
+				maxPath = pathSum;
+			}
+			//数组加1
+			this.getBiPlus(arr1);
+		}
+		System.out.println(maxPath);
+	}
+//	表示二进制的数组每次加1
+	public int[] getBiPlus(int [] arr){
+		int temp = 1;
+		for(int i = 0;i < arr.length;i ++){
+			temp = arr[i] + temp;//第一位
+			if(temp == 1){
+				arr[i] = 1;
+				break;
+			}else if(temp == 2){
+				arr[i] = 0;
+				temp = 1;
+			}
+		}
+		return arr;
+	}
+
+}
