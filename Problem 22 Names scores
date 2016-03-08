@@ -1,0 +1,65 @@
+/**
+ * Problem 22 
+ */
+package com.test;
+import java.util.*;
+import java.io.*;
+
+public class Test22 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//用于存储不带引号的名字
+		ArrayList<String> allName = new ArrayList<String>();
+		try{
+			FileReader fr = new FileReader("F:\\JavaLearning\\ProjectEuler\\Problem22_names.txt");
+			BufferedReader br = new BufferedReader(fr);
+			//存储名字，名字会带有引号
+			String [] names = br.readLine().split("\\,");
+			//去掉引号并存入allName
+			for(String n:names){
+				allName.add(n.substring(1, n.length()-1));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		Test22 ts = new Test22();
+		ts.getNaScores(allName);
+		System.out.println(allName.get(0));
+
+		
+	}
+	public void getNaScores(ArrayList<String> arr){
+		//排序
+		this.sort(arr);
+		//得到值并存入新的序列中
+		ArrayList<Integer> scores = new ArrayList<Integer>();
+		for(int i=0;i<arr.size();i++){
+			int sum = 0;
+			for(int j = 0;j < arr.get(i).length();j++){
+				int theNum = 0;
+				//不区分大小写
+				theNum = (arr.get(i).charAt(j)) - 64;
+				sum = sum + theNum;
+			}
+		scores.add(sum*(i+1));
+		System.out.println(sum*(i+1));
+		}
+	}
+	public void sort(ArrayList<String> arr){
+		//排序算法
+		//第一层循环，循环N-1次
+		for(int i = 0;i < arr.size()-1;i ++){
+			String temp = "";
+			for(int j = arr.size()-1;j > i;j --){
+				//如果前一个字符串比后一个大，则调换
+				if(arr.get(j-1).compareTo(arr.get(j)) > 0){
+					temp = arr.get(j-1);
+					arr.set(j-1,arr.get(j));
+					arr.set(j, temp);
+				}
+			}
+		}
+	}
+
+}
