@@ -1,0 +1,51 @@
+/**
+ * Problem 21 Amicable numbers
+ * 算法：
+ * 1.得到计算d(a)的方法
+ * 2.计算d(a)，同时计算d(d(a))得到其是否=a,若等于，则记录，否则加入一个不再进行计算的数组中，直到a=10000
+ */
+package com.test;
+import java.util.*;
+
+public class Test21 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Test21 ts = new Test21();
+		ts.getAnums();
+//		System.out.println(ts.getD(220));
+	}
+	//主要方法
+	public void getAnums(){
+		final int N = 10000;
+		//用于存储已经计算过的数的集合
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		for(int i = 1;i < N;i ++){
+			//没有计算过才进行一下计算
+			if(!arr.contains(i)){
+				//判断是否为质数的同时 判断是否满足条件
+				if(i == this.getD(this.getD(i)) && this.getD(i) != 1){
+					System.out.println(i+" "+this.getD(i));
+				}
+				arr.add(this.getD(i));
+			}
+		}
+	}
+//	获得d(a)
+	public int getD(int a){
+//		集合总和
+		int sum = 0;
+		ArrayList<Integer> arr = new ArrayList<Integer>(Arrays.asList(1));
+		for(int i=2;i<=Math.sqrt(a);i++){
+			if(a % i == 0){
+				arr.add(i);
+				arr.add(a/i);
+			}
+		}
+		for(int i = 0;i<arr.size();i++){
+			sum += arr.get(i);
+		}
+		return sum;
+	}
+
+}
