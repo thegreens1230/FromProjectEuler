@@ -1,0 +1,50 @@
+/**
+ * Problem 20 Factorial digit sum
+ * 算法：直接相乘，存于数组中
+ */
+package com.test;
+import java.util.*;
+
+public class Test20 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Test20 ts = new Test20();
+		ts.getDigitSum(100);
+	}
+	public void getDigitSum(int n){
+		ArrayList<Integer> mul = new ArrayList<Integer>();
+		mul.add(1);
+		//总和
+		int sum = 0;
+		//乘数
+		for(int i = 2;i <= n;i ++){
+			//遍历集合中的数
+			int temp = 0;
+			for(int j = 0;j < mul.size();j ++){
+				temp = mul.get(j) * i + temp;
+				//乘后的数分为两种情况
+				if(temp < 10){
+					mul.set(j, temp);
+					temp = 0;
+				}else{
+					mul.set(j, temp%10);
+					temp = (temp-mul.get(j))/10;
+				}
+			}
+			//计算到最后一位，还需要往前进位
+			if(temp < 10 && temp != 0){
+				mul.add(temp);
+			}else if(temp >= 10){
+				mul.add(temp % 10);
+				mul.add(temp/10);
+			}
+		}
+		for(int i = mul.size()-1;i >= 0;i --){
+			System.out.print(mul.get(i));
+			sum = sum + mul.get(i);
+		}
+		System.out.println("\r\n"+sum);
+	}
+
+}
