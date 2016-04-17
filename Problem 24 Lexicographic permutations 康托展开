@@ -1,0 +1,50 @@
+/**
+ * 经网上查阅，这是一个康拓展开的问题，算法如下：
+ * http://blog.csdn.net/zhongkeli/article/details/6966805
+ */
+package com.test;
+import java.util.*;
+
+public class Test24 {
+	private static final int [] arr = {0,1,2,3,4,5,6,7,8,9};
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Test24 t = new Test24();
+		t.getSequen(1000000);
+
+	}
+	//主程序
+	public void getSequen(int order){
+		int len = this.arr.length;
+		int [] seq = new int[len];
+		int temp = order;
+		//核心算法，得到第 order 个的数的序列 seq
+		for(int i=0;i<len;i++){
+			seq[i] = temp/this.jiecheng(len-1-i);
+			temp = temp%this.jiecheng(len-1-i);
+		}
+		this.getSequen(seq);
+	}
+	//根据已有序列，输出结果的方法
+	private void getSequen(int [] order){
+		ArrayList<Integer> seq = new ArrayList<Integer>();
+		//将原序列放入集合中，以便后续移除掉
+		for(int x:arr){
+			seq.add(x);
+		}
+		//输出一个数就移除一个数
+		for(int y:order){
+			System.out.print(seq.get(y)+" ");
+			seq.remove(y);
+		}
+	}
+	//计算阶乘的方法(尾递归容易栈溢出)
+	private int jiecheng(int num) {
+		// TODO Auto-generated method stub
+		int total = 1;
+		for(int i=1;i<=num;i++){
+			total *= i;
+		}
+		return total;
+	}
+}
