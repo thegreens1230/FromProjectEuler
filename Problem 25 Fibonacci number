@@ -1,0 +1,92 @@
+/*
+* 这种方式的时间消耗量太大
+*/
+package com.test;
+import java.util.*;
+
+public class Test25 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Test25 t = new Test25();
+//		for(int i=1;i<20;i++){
+//			LinkedList<Integer> val_1 = t.getFibo(i);
+//			for(int j=val_1.size()-1;j>=0;j--){
+//				System.out.print(val_1.get(j));
+//			}
+//			System.out.println("");
+//		}
+		t.getFiboByDigit(1000);
+
+
+	}
+	public void getFiboByDigit(int num){
+		LinkedList<Integer> seq = null;
+		//从3开始，逐个判断其是否含有 num 个数
+		for(int i=3;;i++){
+			seq = this.getFibo(i);
+			if(seq.size()>=num){
+				System.out.println("下标是："+i);
+				//倒置读取
+				for(int j=seq.size()-1;j>=0;j--){
+					System.out.print(seq.get(j));
+				}
+				break;
+			}
+		}
+	}
+	//得到第num个fibo数列的值，用集合表示
+	public LinkedList<Integer> getFibo(int num){
+		LinkedList<Integer> val_1 = new LinkedList<Integer>();
+		LinkedList<Integer> val_2 = new LinkedList<Integer>();
+		LinkedList<Integer> thisNum = null;
+		val_1.add(1);
+		val_2.add(1);
+		if(num <= 2){
+			return val_1;
+		}else{
+			for(int i=3;i<=num;i++){
+				thisNum = fiboPlus(val_1,val_2); 
+				val_1 = val_2;
+				val_2 = thisNum;
+			}
+		}
+		return thisNum;
+			
+	}
+	//将两个数相加的方法（数值太大，故而只能用集合表示，数值倒置存储）
+	public LinkedList<Integer> fiboPlus(LinkedList<Integer> num1,LinkedList<Integer> num2){
+		int temp = 0;
+		LinkedList<Integer> num = new LinkedList<Integer>();
+		//将两个集合的最小尺寸作为计算的范围
+		int size = this.maxSize(num1.size(),num2.size());
+		ListIterator<Integer> iter_1 = num1.listIterator();
+		ListIterator<Integer> iter_2 = num2.listIterator();
+		for(int i=0;i<size;i++){
+			int sum;
+			if(iter_1.hasNext() && iter_2.hasNext()){
+				sum = temp+iter_1.next()+iter_2.next();
+			}else if(iter_1.hasNext() || iter_2.hasNext()){
+				if(iter_1.hasNext())
+					sum = temp+iter_1.next();
+				else{
+					sum = temp+iter_2.next();
+				}
+			}else{
+				sum = temp;
+			}
+			num.add(sum%10);
+			temp = (sum>9?1:0);
+		}
+		if(temp == 1){
+			num.add(1);
+		}
+		return num;
+	}
+	//取二者最大值
+	private int maxSize(int num1,int num2) {
+		// TODO Auto-generated method stub
+		return num1>=num2?num1:num2;
+	}
+
+}
